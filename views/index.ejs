@@ -1,0 +1,80 @@
+<html>
+
+<head>
+<title>Home Page</title>
+<script
+  src="https://code.jquery.com/jquery-1.12.4.js"
+  integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+  crossorigin="anonymous"></script>
+<script src="/javascripts/main.js"></script>
+<style>
+article {
+  float: left;
+  padding: 20px;
+  width: 70%;
+  background-color: #f1f1f1;
+  height: 500px;
+}
+</style>
+
+</head>
+<body>
+<section>
+<pre>
+<form method="post" action="/insert" enctype="multipart/form-data" >
+	Name <input type="text" name="name" required> <br><br>
+	Age  <input type="number" name="age" required>  <br><br>
+	Image <input type="file" name="image" required>
+	     <button type="submit" value="Upload">Submit</button>
+</form>
+</pre>
+
+
+</section>
+
+
+<article>
+	<table border="1" >
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Age</th>
+			<th>Image</th>
+			<th>Delete</th>
+			<th>Update</th>
+		</tr>
+	</thead>
+	<tbody>
+<%for(var i=0;i<result.length;i++){%>
+		<tr>
+			<td><%=result[i].name%></td>
+			<td><%=result[i].age%></td>
+			<td><img src="/<%=result[i].imagepath%>" height="50px" weight="50px"></td>
+			<td>
+		        <a href="#" class="deleteUser" data-id="<%=result[i]._id%>">Delete</a>		 
+		   </td>
+			<td>
+			<a href="#" class="updateUser" data-id="<%=i%>">Update</a>
+			 
+			</td>
+			<td>
+            
+            <form class="same" method="post" action="/update" enctype="multipart/form-data" >
+	    	Name <input type="text" name="name" required> <br><br>
+			Age  <input type="text" name="age" required>  <br><br>
+			Image <input type="file" name="image" required> <br><br>
+			<input type="hidden" name="id" value="<%=result[i]._id%>">
+	     	<button type="submit" value="Upload">Submit</button>
+			</form>
+         
+        </td>
+		</tr>
+		<%}%>
+	</tbody>
+</table>
+</article>
+
+</body>
+
+
+</html>
