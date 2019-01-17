@@ -24,8 +24,8 @@ article {
 <form method="post" action="/insert" enctype="multipart/form-data" >
 	Name <input type="text" name="name" required> <br><br>
 	Age  <input type="number" name="age" required>  <br><br>
-	Image <input type="file" name="image" required>
-	     <button type="submit" value="Upload">Submit</button>
+	Image <input type="file" name="image" required>  <br>
+	        <button type="submit" value="Upload">Submit</button>
 </form>
 </pre>
 
@@ -54,14 +54,14 @@ article {
 		        <a href="#" class="deleteUser" data-id="<%=result[i]._id%>">Delete</a>		 
 		   </td>
 			<td>
-			<a href="#" class="updateUser" data-id="<%=i%>">Update</a>
+			<a href="#"   class="updateUser" data-id="<%=i%>">Update</a>
 			 
 			</td>
 			<td>
             
-            <form class="same" method="post" action="/update" enctype="multipart/form-data" >
+     <form style="display:none" class="same" method="post" action="/update" enctype="multipart/form-data" >
 	    	Name <input type="text" name="name" required> <br><br>
-			Age  <input type="text" name="age" required>  <br><br>
+			Age  <input type="number" name="age" required>  <br><br>
 			Image <input type="file" name="image" required> <br><br>
 			<input type="hidden" name="id" value="<%=result[i]._id%>">
 	     	<button type="submit" value="Upload">Submit</button>
