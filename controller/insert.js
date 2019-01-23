@@ -1,10 +1,12 @@
 const fs=require('fs');
 const path = require("path");
+var session = require('express-session');
 
 
 var Person=require("../models/personSchema");
 
 var createUser=function(req,res,next){
+   console.log("id is"+ req.session.userId);
    const tempPath = req.file.path;
    if ((path.extname(req.file.originalname).toLowerCase() === ".png")||(path.extname(req.file.originalname).toLowerCase() === ".jpg")) {
      
@@ -12,7 +14,8 @@ var createUser=function(req,res,next){
      var user=  Person({
      name:req.body.name,
      age:req.body.age,
-     imagepath:req.file.filename
+     imagepath:req.file.filename,
+     userId:req.session.userId
     })  
     
     user.save(function(err,result){

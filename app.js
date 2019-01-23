@@ -3,13 +3,14 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const cookieSession=require('cookie-session');
-var passportSetup = require('./config/passport-setup')
-const passport=require('passport');
+var session = require('express-session');
+// const cookieSession=require('cookie-session');
+// var passportSetup = require('./config/passport-setup')
+// const passport=require('passport');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var authRouter  = require('./routes/auth');
+
 
 var app = express();
 
@@ -23,23 +24,41 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'upload')));
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true
+}));
+// //cookie function
+// app.use(cookieSession({
+//    maxAge:24*60*60*1000,
+//    keys:['abhinavisawesome']
 
-//cookie function
-app.use(cookieSession({
-   maxAge:24*60*60*1000,
-   keys:['abhinavisawesome']
-
-}))
+// }))
 
 
 
-//initialize passport
-app.use(passport.initialize());
-app.use(passport.session());
+// //initialize passport
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/auth',authRouter);
+
+
+
+app.get('/logout', function(req, res){
+   console.log("logout successfull");
+   req.session.destroy(function(err){
+   console.log("session destroyed");
+    if(err)
+    {
+      console.log("error in destroying session");
+      req.negotiate(err);
+    }
+   })
+     res.render('login');
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
