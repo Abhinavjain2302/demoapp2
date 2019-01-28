@@ -22,9 +22,9 @@ var createUser=function(req,res,next){
      if(err) throw err;
      console.log(result);
     })
-      }
-       
-       res.redirect('/display');
+      }else{
+       res.render('ageAlert');
+     }
     } else {
        fs.unlink(tempPath, err => {
         if (err) return handleError(err, res);

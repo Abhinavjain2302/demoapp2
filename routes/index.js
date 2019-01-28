@@ -21,7 +21,13 @@ var signupUser=require('../controller/signup')
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-   res.render('login');
+  res.header('Cache-Control','no-cache, private,no-store, must-revalidate,max-stale=0,post-check=0,pre-check=0');
+   //console.log("session at /"+req.session.userId)
+   if(req.session.userId){
+   	res.redirect('/display');
+   }else{
+      res.render('login');
+    }
 });
 
 

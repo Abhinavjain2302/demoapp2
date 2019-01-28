@@ -29,6 +29,9 @@ var Person =require('../models/personSchema');
 
   })
 }
+else{
+       res.render('ageAlert');
+     }
 }else {
        fs.unlink(tempPath, err => {
         if (err) return handleError(err, res);

@@ -6,7 +6,7 @@ var email=req.body.email;
    var name=req.body.name;
    var password=req.body.password;
   var confirmPassword=req.body.confirmPassword;
-
+    if(req.body){
     if(password===confirmPassword){
      User.findOne({email:email},function(err,user){
        console.log(user);
@@ -38,7 +38,9 @@ var email=req.body.email;
    else{
     res.render('passwordAlert');
    }
-
+}else{
+   res.render('signupAlert');
+}
 }
 
  module.exports=signup;

@@ -6,11 +6,12 @@ var login=function(req,res,next){
     var email=req.body.email;
     var password=req.body.password;
     console.log(req.body);
+    if(req.body){
 
 
     User.findOne({email:email},function(err,user){
      console.log(user);
-   
+   if(user){
     bcrypt.compare(password, user.password , function(err, isMatch){
       if(!isMatch){ 
         console.log("User not found");
@@ -25,9 +26,15 @@ var login=function(req,res,next){
 
 
     })
+  }else{
+    res.render('loginalert')
+  }
   })
+}else{
+       res.render('loginalert')
 
   }
+}
 
 
 module.exports=login;
