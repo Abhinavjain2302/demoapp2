@@ -8,6 +8,7 @@ var Person=require("../models/personSchema");
 var createUser=function(req,res,next){
    console.log("id is"+ req.session.userId);
    const tempPath = req.file.path;
+   console.log(tempPath);
    if ((path.extname(req.file.originalname).toLowerCase() === ".png")||(path.extname(req.file.originalname).toLowerCase() === ".jpg")) {
      
     if(req.body.age>0){
@@ -21,6 +22,7 @@ var createUser=function(req,res,next){
     user.save(function(err,result){
      if(err) throw err;
      console.log(result);
+     res.redirect('/display')
     })
       }else{
        res.render('ageAlert');
